@@ -21,6 +21,7 @@ public class AppNominas {
         int opcion;
         Scanner teclado = new Scanner(System.in);
         String dni, nombre;
+        Dni dni2;
         float salario, salarioHora;
         int horas;
         Empleado e;
@@ -40,21 +41,29 @@ public class AppNominas {
 
             switch (opcion) {
                 case 1:
+                    try{
                     System.out.println("Introduzca el DNI: ");
                     dni = teclado.nextLine();
+                    dni2=Dni.valueof(dni);
                     System.out.println("Introduzca el nombre: ");
                     nombre = teclado.nextLine();
                     System.out.println("Introduzca el salario: ");
                     salario = teclado.nextFloat();
-                    if (sn.incluirEmpleado(new EmpleadoFijo(dni, nombre, salario))) {
+                    if (sn.incluirEmpleado(new EmpleadoFijo(dni2, nombre, salario))) {
                         System.out.println("Empleado incluido en el sistema");
                     } else {
                         System.out.println("No se ha podido incluir el empleado en el sistema");
                     }
+                    }catch(DniException ex){
+                            System.out.println(ex.getMessage());
+                            
+                            }
                     break;
                 case 2:
+                    try{
                     System.out.println("Introduzca el DNI: ");
                     dni = teclado.nextLine();
+                    dni2=Dni.valueof(dni);
                     System.out.println("Introduzca el nombre: ");
                     nombre = teclado.nextLine();
                     System.out.println("Introduzca el salario: ");
@@ -62,24 +71,35 @@ public class AppNominas {
                     System.out.println("Introduzca número de horas");
                     horas = teclado.nextInt();
                     teclado.nextLine();
-                    if (sn.incluirEmpleado(new EmpleadoEventual(dni, nombre, salarioHora, horas))) {
+                    if (sn.incluirEmpleado(new EmpleadoEventual(dni2, nombre, salarioHora, horas))) {
                         System.out.println("Empleado incluido en el sistema");
                     } else {
                         System.out.println("No se ha podido incluir el empleado en el sistema");
                     }
+                    }catch(DniException ex){
+                        System.out.println(ex.getMessage());
+                    }
                     break;
+                    
                 case 3:
+                    try{
                     System.out.println("Introduce el DNI del empleado: ");
                     dni = teclado.nextLine();
-                    e = sn.getEmpleado(dni);
+                    dni2=Dni.valueof(dni);
+                    e = sn.getEmpleado(dni2);
                     if (e != null) {
                         System.out.println(e);
                     }
+                    }catch(DniException ex){
+                        System.out.println(ex.getMessage());
+                    }
                     break;
                 case 4:
+                    try{
                     System.out.println("Introduce el DNI del empleado: ");
                     dni = teclado.nextLine();
-                    e = sn.getEmpleado(dni);
+                    dni2=Dni.valueof(dni);
+                    e = sn.getEmpleado(dni2);
                     if (e != null) {
                         System.out.println("Empleado a eliminar" + e);
                         System.out.println("Si/No");
@@ -93,6 +113,9 @@ public class AppNominas {
                         }
                     } else {
                         System.out.println("Empleado no existe");
+                    }
+                    }catch(DniException ex){
+                        System.out.println(ex.getMessage());
                     }
                 case 5:
                     for (Empleado e1 : sn.listarEmpleados()) {
@@ -108,9 +131,11 @@ public class AppNominas {
                     System.out.println("Total salarios" + sn.getTotalDepositos());
 
                     break;
-                case 0:
+                 case 0:
+                    System.out.println("Hasta pronto");
                     break;
                 default:
+                    System.out.println("Opcion incorrecta");
             }
         } while (opcion != 0);
 

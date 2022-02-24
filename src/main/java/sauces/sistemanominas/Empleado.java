@@ -13,27 +13,48 @@ import java.util.Objects;
  */
 public abstract class Empleado implements Comparable<Empleado> {
 
-    private String dni;
+    private Dni dni;
     private String nombre;
 
+    /**
+     *
+     */
     public Empleado() {
     }
 
-    public Empleado(String dni, String nombre) {
+    /**
+     *
+     * @param dni
+     * @param nombre
+     */
+    public Empleado(Dni dni, String nombre) {
         this.dni = dni;
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return dni + "," + nombre;
     }
 
+    /**
+     *
+     * @param empleado
+     * @return
+     */
     @Override
     public int compareTo(Empleado empleado) {
         return this.dni.compareTo(empleado.dni);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -41,6 +62,11 @@ public abstract class Empleado implements Comparable<Empleado> {
         return hash;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -58,22 +84,42 @@ public abstract class Empleado implements Comparable<Empleado> {
         return false;
     }
 
-    public String getDni() {
+    /**
+     *
+     * @return
+     */
+    public Dni getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    /**
+     *
+     * @param dni
+     */
+    public void setDni(Dni dni) {
         this.dni = dni;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public abstract float ingresos();
 
 }

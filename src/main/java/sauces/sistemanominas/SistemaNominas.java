@@ -14,21 +14,22 @@ import java.util.TreeMap;
  *
  * @author daw1
  */
-public class SistemaNominas{
-    private TreeMap<String,Empleado> empleados;
+public class SistemaNominas {
+
+    private TreeMap<Dni, Empleado> empleados;
 
     /**
      *
      */
     public SistemaNominas() {
-        empleados=new TreeMap<>();
+        empleados = new TreeMap<>();
     }
 
     /**
      *
      * @return
      */
-    public TreeMap<String,Empleado> getEmpleados() {
+    public TreeMap<Dni, Empleado> getEmpleados() {
         return empleados;
     }
 
@@ -36,17 +37,17 @@ public class SistemaNominas{
      *
      * @param empleados
      */
-    public void setEmpleados(TreeMap<String,Empleado> empleados) {
+    public void setEmpleados(TreeMap<Dni, Empleado> empleados) {
         this.empleados = empleados;
     }
-    
+
     /**
      *
      * @param empleado
      * @return
      */
-    public boolean incluirEmpleado(Empleado empleado){
-        return (empleados.putIfAbsent(empleado.getDni(), empleado)==null);
+    public boolean incluirEmpleado(Empleado empleado) {
+        return (empleados.putIfAbsent(empleado.getDni(), empleado) == null);
     }
 
     /**
@@ -54,8 +55,18 @@ public class SistemaNominas{
      * @param dni
      * @return
      */
-    public Empleado getEmpleado(String dni){
+    public Empleado getEmpleado(Dni dni) {
         return empleados.get(dni);
+    }
+
+    /**
+     *
+     * @param dni
+     * @return
+     * @throws DniException
+     */
+    public Empleado getEmpleado(String dni) throws DniException {
+        return empleados.get(Dni.valueof(dni));
     }
 
     /**
@@ -63,27 +74,27 @@ public class SistemaNominas{
      * @param empleado
      * @return
      */
-    public boolean eliminarEmpleado(Empleado empleado){
-        return (empleados.remove(empleado.getDni())!=null);
+    public boolean eliminarEmpleado(Empleado empleado) {
+        return (empleados.remove(empleado.getDni()) != null);
     }
-    
+
     /**
      *
      * @return
      */
-    public List<Empleado> listarEmpleados(){
+    public List<Empleado> listarEmpleados() {
         return new ArrayList<>(empleados.values());
     }
-    
+
     /**
      *
      * @return
      */
-    public List<Empleado> listarEmpleadosPorSueldo(){
-        List<Empleado> salida=new ArrayList<>(empleados.values());
-        
+    public List<Empleado> listarEmpleadosPorSueldo() {
+        List<Empleado> salida = new ArrayList<>(empleados.values());
+
         Collections.sort(salida, new ComparadorSueldo());
-        
+
         return salida;
     }
 
@@ -91,12 +102,12 @@ public class SistemaNominas{
      *
      * @return
      */
-    public float getTotalDepositos(){
-        float acumulador=0;
-        for(Empleado c : empleados.values()){
-            acumulador+=c.ingresos();
+    public float getTotalDepositos() {
+        float acumulador = 0;
+        for (Empleado c : empleados.values()) {
+            acumulador += c.ingresos();
         }
         return acumulador;
     }
- 
+
 }
